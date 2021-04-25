@@ -6,11 +6,11 @@ Created on Sat Nov 14 17:54:39 2020
 @author: gregory
 """
 
-import urllib, re
+import names, re, urllib
 from bs4 import BeautifulSoup
 
-url = 'https://seattlefarmersmarkets.org/about-us'
-#url = 'https://qafm.org/about'
+#url = 'https://seattlefarmersmarkets.org/about-us'
+url = 'https://qafm.org/about'
 #url = 'https://www.sfmamarkets.com/mission-and-history'
 htmlRead = urllib.request.urlopen(url).read()
 soup = BeautifulSoup(htmlRead, 'html.parser')
@@ -36,6 +36,25 @@ def sortDict(dictionary, descending):
     sd = sorted(dictionary, key = dictionary.get, reverse = descending)
     return(sd)
     
+def prepareDict(dictionary):
+    NON_WORD = '[^A-z]'
+    EXCLUDE = ['and', 'all', 'anne', 'are',
+               'for', 'from',
+               'here',
+               'our', 
+               'qafm', 'qafms', 'queen',
+               'that', 'them', 
+               'were', 'with', 
+               'you']
+    d = dict()
+    for item in dictionary:
+        new = re.sub(NON_WORD, '', item)
+        print(new)
+        if len(new) > 2 and not(any(new in e for e in EXCLUDE)):
+            d[new] = dictionary[item]
+#            remove.append(item)
+    return(d)
+    
     
     
 words = ''
@@ -51,29 +70,32 @@ for tag in tags:
                 words += content.string + ' '
 
 freq = wordFrequency(words)
+freq = prepareDict(freq)
 sortFreq = sortDict(freq, True)
 
+# Calculate the most and least occurring words
 highest = None
 lowest = None
-for k in sortFreq[:100]:
+top = 50
+for k in sortFreq[:top]:
     if highest is None or highest < freq[k]:
         highest = freq[k]
     if lowest is None or lowest > freq[k]:
         lowest = freq[k]
 print('Range of counts:', highest, lowest)
 
-bigSize = 80
-smallSize = 20
+textLarge = 80
+textSmall = 20
 
 fhand = open('wordcloud.js', 'w')
 fhand.write("wordcloud = [")
 first = True
-for k in sortFreq[:100]:
+for k in sortFreq[:top]:
     if not first: fhand.write(",\n")
     first = False
     size = freq[k]
-    size = (size - lowest) / float(highest - lowest)
-    size = int((size * bigSize) + smallSize)
+    size = (size - lowest) / (highest - lowest)
+    size = int((size * textLarge) + textSmall)
     fhand.write("{text: '" + k + "', size: " + str(size) + "}")
 fhand.write("\n];\n")
 fhand.close()
