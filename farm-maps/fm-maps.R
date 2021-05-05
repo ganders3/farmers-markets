@@ -7,17 +7,24 @@ library(maps)
 # Set-up ####
 rm(list = ls())
 # -------------------- controls------------------------------
-DIRECTORY = 'C:/Users/Gregory/Desktop/farm-maps'
+DIRECTORY = '/home/gregory/farmers-markets/farm-maps'
 RATIO = 1.4
 API_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 # -------------------- controls------------------------------
 setwd(DIRECTORY)
 
 # Get coordinates of farm addresses ####
-d = read.csv('farms.csv', header = FALSE)
-colnames(d) = c('Name', 'Address')
+d = read.csv('farms.csv', header = TRUE)
+# colnames(d) = c('Name', 'Address', 'Category')
 
-d1 = mutate_geocode(d, location = Address, output = 'latlona')
+# Geocode the addresses using Google Maps API
+d1 = mutate_geocode(d, location = address, output = 'latlona')
+
+# Display the entries that did not return anything from Google Maps
+failed = d1[which(is.na(d1$lon)), ]
+
+# Save the geocoded data to csv
+write.csv(d1, 'farms-geocoded.csv')
 
 # Create map of Washington ####
 m = map_data('state', region = 'Washington')
@@ -32,4 +39,4 @@ gg = ggplot() +
   coord_fixed(RATIO)
 
 # Add farm locations to map
-gg + geom_point(data  = d1, aes(x = lon, y = lat), color = 'red', size = 5)
+gg + geom_point(data  = d1, aes(x = lon, y = lat), color = 'red', size = 2)

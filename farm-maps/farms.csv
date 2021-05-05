@@ -1,160 +1,150 @@
-ACMA Mission Orchards,"19488 Road 5 NW, Quincy, WA, 98848, United States"
-ACMA Mission Orchard,"19488 Road 5 NW, Quincy, WA, 98848, United States"
-Alm Hill Gardens,"3550 Alm Rd Everson, WA 98247"
-Alvarez Organic Farms,"300 Murray Rd, Mabton, WA 98935"
-Amador Farms (Fruit & Vegetables),"Moxee, WA 98936"
-Amarelo Bread,"139 9th Ave N Seattle, WA 98109"
-Andrea Silverman Designs,"25827 SE 154th St, Issaquah, WA 98027"
-Art n Soul,"2860 NW Market St, Seattle, WA 98107"
-Ayako & Family,"330 Mellis Rd, Wapato, WA 98951"
-BaBa Foods Co. LLC,"100 Andover Park W, STE 150 #409, Tukwila, WA 98188"
-BG Gourmet BBQ Sauce,"174th Ave SW Longbranch, WA"
-Blissful wunders chocolates,"PMB 396, 3403 Steamboat Island RD NW, Olympia, WA 98502"
-"Bonnie B's Peppers, LLC","1500 Pike Place Market, Seattle, WA 98101"
-Bow Hill Blueberries,"15628 Bow Hill Rd, Bow, WA 98232"
-Brady's Oysters,"3714 Oyster Pl, Aberdeen, WA 98520"
-Britt's Pickles,"5489 Crawford Rd, Langley, WA 98260"
-Brookfield Farm Bees And Honey,"7875 Ambridge Rd, Maple Falls, WA 98266"
-Brothers & Co,Seattle 98104
-Brothers & Co �,
-Brown Butterfly,
-Butterfusion,
-Carl's Cutting Board,
-Carnivorous Plants from Mars,
-CHELO Cultured Cashew Crème,
-Cheri A Ellis,
-Classic Kettle Corn,
-Collins Family Orchards,
-Collins Family Orchards (Fruit),
-Cyrus Saffron,
-Daddy's Muesli,
-Dante's Inferno Dogs,
-Deborah's Homemade Pies,
-Deschampsia,
-Dimensional Colors,
-Domina Dairy and Creamery,
-Dougs,
-DrinkingStraws.Glass,
-Durandall Accessories,
-Eaglemount Wine and Cider,
-Element Fe,
-ELLENOS REAL GREEK YOGURT,
-Farmhouse Organics,
-Finnriver Farm and Cidery,
-Fire and Scrape,
-Firefly Kitchens,
-Foothills Farm,
-Foothills Farm (Vegetables & Eggs),
-Foraged and Found Edibles Inc.,
-FOTOGRAFIA ARTISTICA,
-Gaia's Harmony Farm,
-Glendale Shepherd LLC,
-Got Soup,
-Growing Things Farm,
-Growing Washington,
-Haxan Ferments,
-Hayton Farms Berries,
-Hemlock And Rose Design,
-Hierophant Meadery (Mead),
-"Hierophant Meadery, LLC",
-holmquist hazelnuts,
-Homestead Honey,
-HOTSAUCEfresh Ltd,
-HOTSAUCEfresh Ltd dba HOTBABE-HOTSAUCE,
-Hurst Furniture,
-Itali Lambertini,
-Jarvis Growers,
-JMccormick Designs,
-Johnson Berry Farm,
-jonboy caramels,
-Kale Love,
-Karmela Botanica,
-King's Mozzarella,
-Kirsop Farm,
-La Crespella,
-La Pasta (Pasta & Sauces),
-LaughinGnome Pottery - formerly Daily Bird Pottery,
-Laurie Mortinson,
-Leah Pastrana Handmade Jewelry,
-Left Foot Farm,
-LIA'S GARDEN,
-Little Prague bakery,
-Loki Fish Company,
-lyall farms,
-Magana Farms,
-Mama D's,
-Marge Granola,
-Market Minis,
-Martin Family Orchards,
-Martin Family Orchards (Fruit),
-Marzolf Meats,
-Mee Garden,
-Moms Microgarden,
-Mount Bakery Cafe,
-Mustard and Co.,
-"Mystic Kombucha, LLC",
-Nash's Organic,
-Native American Silversmith,
-Nature's Authority,
-Nature's Last Stand,
-Nature's Last Stand (Pork),
-No Boundaries Books (Acha LLC),
-Olsen Farms,
-One Leaf Farm,
-Pa Garden,
-Pasteria Lucchese,
-Patty Pan Cooperative,
-Patty Pan Cooperative (Tortillas & Frozen Foods),
-Patty Pan Pantry,
-Pearls by Nature,
-Pete's Perfect Toffee,
-Pete's Perfect Toffee LLC,
-Pinckney Cookie Cafe,
-Propolis Brewing,
-Puddles Barkery LLC,
-Purdy Organics,
-Randi Starup / RS Ceramics,
-Resonant Botanicals,
-River Run Farm,
-Rooted Souls Winery,
-Sage on the Mountain,
-Salmonberry Goods,
-Salt Blade (Cured Meat),
-Samish Bay Cheese,
-Sam's Salmon Sales,
-Sea Breeze Farm,
-Sea Wolf Bakers,
-Seattle Pops,
-Semilla Designs: Seed Jewelry,
-Shambala Ancient Grain Bakery Inc.,
-Shen Zen Tea,
-Shongchaos farm,
-Sidhu Farms,
-Sidhu Farms (Vegetables & Berries),
-Skagit River Ranch,
-Sno-Valley Mushrooms,
-"SpringRain Farm & Orchard, Inc.",
-St. Jude Tuna,
-Stokesberry Sustainable Farm,
-"Stokesberry Sustainable Farm, LLC",
-Summit & Terrace Artisanal Fragrance,
-Sunny Pine Farm,
-Sunset Hill Enterprises,
-Tall Grass Bakery,
-Taqueria Los Chilangos,
-The Old Farmer,
-The Old White House,
-The Tandoozy Company,
-Timber City Ginger,
-Tin Dog Brewing,
-TINYS ORGANIC,
-Under The Chestnut Tree,
-Uphill Designs,
-Urban Sanctuary Farm,
-Vespucci Pizza,
-Wag & Wood,
-Wilridge Winery & Vineyard,
-Wilson Fish Markets LLC,
-Windy N Ranch,
-Yu Tang Ceramics,
-ZIVA Mediterranean Foods,
+farm,address,category
+ACMA Mission Orchards,"19488 Road 5 NW, Quincy, WA, 98848, United States",farm 
+Alm Hill Gardens,"3550 Alm Rd Everson, WA 98247",farm 
+Alvarez Organic Farms,"300 Murray Rd, Mabton, WA 98935",farm 
+Amador Farms,"Moxee, WA 98936",farm 
+Amarelo Bread,"139 9th Ave N Seattle, WA 98109",bakery
+Andrea Silverman Designs,"25827 SE 154th St, Issaquah, WA 98027",art
+Art n Soul,"2860 NW Market St, Seattle, WA 98107",art
+Ayako & Family,"1621 17TH Ave APT 110 Seattle, WA, 98122-2764",prepared food
+BaBa Foods Co. ,"100 Andover Park W, Tukwila, WA 98188",prepared food
+BG Gourmet BBQ Sauce,"174th Ave SW Longbranch, WA",prepared food
+Blissful wunders chocolates,"PMB 396, 3403 Steamboat Island RD NW, Olympia, WA 98502",prepared food
+Bonnie B's Peppers,"1500 Pike Place Market, Seattle, WA 98101",prepared food
+Bow Hill Blueberries,"15628 Bow Hill Rd, Bow, WA 98232",farm 
+Brady's Oysters,"3714 Oyster Pl, Aberdeen, WA 98520",seafood
+Britt's Pickles,"5489 Crawford Rd, Langley, WA 98260",prepared food
+Brookfield Farm Bees And Honey,"7875 Ambridge Rd, Maple Falls, WA 98266",farm 
+Brothers & Co,Seattle 98104,prepared food
+Brown Butterfly,"439 209th Ave NE Redmond WA 98074-6908
+",bath and body
+Butterfusion,"Spokane, WA 99201",prepared food
+Carl's Cutting Board,"419 N 46th St. Seattle, WA 98103. Fremont",kitchen supplies
+Carnivorous Plants from Mars,,plant
+CHELO Cultured Cashew Creme,"8416 5th Ave NE, Seattle, WA 98115",prepared food
+Cheri A Ellis,98117,art
+Classic Kettle Corn,,prepared food
+Collins Family Orchards,"520 Parish Road Selah, WA 98942",farm 
+Cyrus Saffron,"Manson, WA 98831",farm 
+Daddy's Muesli,"818 Corona St. Port Townsend, WA 98368",prepared food
+Dante's Inferno Dogs,"1752 N.W. Market St, Seattle, WA 98107 ",prepared food
+Deborah's Homemade Pies,"18803 STONE AVE N, Shoreline, WA 98133",bakery
+Deschampsia,"414 Kearney St. Port Townsend, WA 98368",bath and body
+Dimensional Colors,,
+Domina Dairy and Creamery,"265 ROMERMAN RD, CHEHALIS, 98532",farm 
+Dougs,,
+DrinkingStraws.Glass,"Selah, WA 98942",kitchen supplies
+Durandall Accessories,"334 NE 92nd St, Seattle, WA 98115 ",
+Eaglemount Wine and Cider,"1893 S Jacob Miller Rd, Port Townsend, WA 98368",beverage
+Element Fe,"7097 Guemes Island Rd, Anacortes, WA 98221",kitchen supplies
+ELLENOS REAL GREEK YOGURT,"1500 Pike Pl, Seattle, WA 98101",prepared food
+Farmhouse Organics,"3785 NE Lincoln Rd Poulsbo, WA, United States, 98370-8945",farm 
+Finnriver Farm and Cidery,"124 Center Rd, Chimacum, WA 98325",farm and beverage
+Fire and Scrape,"6510 Phinney Ave N, Seattle, WA 98103",prepared food
+Firefly Kitchens,"844 NW 49th St, Seattle, WA 98107",prepared food
+Foothills Farm,"25502 Hoehn Rd, Sedro-Woolley, WA 98284",farm 
+Foraged and Found Edibles Inc.,"950 S Myrtle St, Seattle, WA 98108",farm 
+FOTOGRAFIA ARTISTICA,,
+Gaia's Harmony Farm,snohomish WA,farm 
+Glendale Shepherd,"7616 Glendale Heights Rd, Clinton, WA 98236",farm 
+Got Soup,,prepared food
+Growing Things Farm,"27307 NE 100th St, Carnation, WA 98014",bath and body
+Growing Washington,"8130 Gillies Rd, Everson, WA 98247",farm 
+Haxan Ferments,"5131 S Director St, Seattle WA 98118",prepared food
+Hayton Farms Berries,"16498 Fir Island Rd, Mt Vernon, WA 98273",farm 
+Hemlock And Rose Design,Seattle WA,art
+Hierophant Meadery,"5586 Double Bluff Rd, Freeland, WA 98249",beverage
+holmquist hazelnuts,"9821 Holmquist Rd, Lynden, WA 98264",farm 
+Homestead Honey,,farm 
+HOTSAUCEfresh Ltd,"11396, Olympia, WA 98508-1396",prepared food
+Hurst Furniture,"1520A NW Ballard Way, Seattle, WA 98107",art
+Itali Lambertini,"823 Water St, Port Townsend, WA 98368",art
+Jarvis Growers,"226 Cook Road Sequim, WA 98382",farm
+JMccormick Designs,"1929 10TH Ave W Uppr Seattle, WA, 98119-5812",art
+Johnson Berry Farm,"2908 Wiggins Road Southeast Olympia, WA 98501",farm
+jonboy caramels,"4900 9TH Ave NW Seattle ​, WA, 98107-3659",prepared food
+Kale Love,"309 1st Ave S Seattle, WA 98104 ",prepared food
+Karmela Botanica,"18261 Periwinkle Ln Mount Vernon ​, WA, 98274-8148",bath and body
+King's Mozzarella,"Kent, WA 98032",prepared food
+Kirsop Farm,"James Rd SW, Rochester, WA 98579",farm
+La Crespella,"3004 NW 59th ST Seattle, Wa 98107",prepared food
+La Pasta,"9118 35th Ave NE Seattle, WA 98115",prepared food
+LaughinGnome Pottery,"2009 4th St, Port Townsend, WA 98368",art
+Laurie Mortinson,seattle  WA,art
+Leah Pastrana Handmade Jewelry,seattle WA,art
+Left Foot Farm,"31510 44th Avenue East, Eatonville, WA 98328",farm
+LIA'S GARDEN,snohomish WA,farm
+Little Prague bakery,"6045 California Ave SW Seattle, WA 98136",bakery
+Loki Fish Company,"309 S Cloverdale St Seattle ​, WA, 98108-4579",farm
+lyall farms,"29249 Road O SW Mattawa, Washington 99349 ",farm
+Magana Farms,"3358 Washout Rd, Sunnyside, WA 98944",farm
+Mama D's,"313th Street, Auburn, WA 98092",bakery
+Marge Granola,"420 S 96th St, Seattle, WA 98108",prepared food
+Market Minis,snohomish WA,prepared food
+Martin Family Orchards,"43 Orondo Spur, Orondo, WA 98843",farm
+Marzolf Meats,"3209 278th Ave NE, Redmond, WA 98053 ",
+Mee Garden,"snoqualmie, wa",farm
+Moms Microgarden,"bonney lake, WA 98391",farm
+Mount Bakery Cafe,"308 W Champion St, Bellingham, WA 98225",bakery
+Mustard and Co.,"4501 Shilshole Ave NW, Seattle, WA 98107",prepared food
+Mystic Kombucha,"1711 12th Ave, Seattle, WA 98122",beverage
+Nash's Organic,"1865 E Anderson Rd, Sequim, WA, 98382",farm
+Native American Silversmith,,art
+Nature's Authority,"Vancouver, WA",bath and body
+Nature's Last Stand,"1313 W Snoqualmie River Rd NE, Carnation, WA 98014",farm
+No Boundaries Books (Acha LLC),"85 Pike St Seattle, WA 98101",art
+Olsen Farms,"1900 Rocky Creek Rd, Colville, WA 99114",farm
+One Leaf Farm,"10890 Elliott Rd, Snohomish, WA 98296",farm
+Pa Garden,"Kirkland, WA 98034",farm
+Pasteria Lucchese,"3004 NW 59TH St, Seattle ​, WA, 98107-2555",prepared food
+Patty Pan Pantry ,"15550 27th Ave NE, Shoreline, WA 98155",prepared food
+Patty Pan Cooperative,"15550 27th Ave NE, Shoreline, WA 98155",prepared food
+Pearls by Nature,"4890 NW Eldorado Blvd Bremerton, WA, 98312-1124",art
+Pete's Perfect Toffee,mountlake terrace 98043,prepared food
+Pinckney Cookie Cafe,"11251 120th Ave NE, Kirkland, WA 98033",bakery
+Propolis Brewing,"2457 Jefferson St, Port Townsend, WA 98368",beverage
+Puddles Barkery,"1428 NW 59th St Seattle, WA 98107",pet
+Purdy Organics,"2419 Jahn Ave NW Trlr 15, Gig Harbor, WA, 98335-7936",farm
+Randi Starup / RS Ceramics,"Ballard, WA",art
+Resonant Botanicals,"7459 Maxwelton Rd, Clinton, WA 98236",bath and body 
+River Run Farm,"2800 Woodcock Rd, Sequim, WA 98382",farm
+Rooted Souls Winery,"15902 Woodinville - Redmond Rd NE, Woodinville, WA 98072 ",beverage
+Sage on the Mountain,"Edmonds, WA, 98026",bath and body 
+Salmonberry Goods,"420 S Massachusetts, Seattle WA 98134",bakery
+Salt Blade,"9530 Aurora Ave North, Seattle, WA 98103 ",prepared food
+Samish Bay Cheese,"15115 Bow Hill Rd, Bow, WA 98232",farm
+Sam's Salmon Sales," 2514 Lake Park Drive, Seattle, WA 98144",seafood
+Sea Breeze Farm,"17635 100th Ave SW, Vashon, WA 98070-5234",farm
+Sea Wolf Bakers,"3621 Stone Way N, Seattle, WA 98103",bakery
+Seattle Pops,"1401 N 45th St, Seattle, WA 98103",prepared food
+Semilla Designs: Seed Jewelry,"13609 SW 220th St, Vashon, WA 98070",art
+Shambala Ancient Grain Bakery Inc.,"614 S 1st St, Mt Vernon, WA 98273",bakery
+Shen Zen Tea,"5416 Shilshole Ave NW, Seattle, WA 98107",beverage
+Shongchaos farm,"carnation, wa, 98014",farm
+Sidhu Farms,"14734-14926 96th St E, Puyallup, WA 98372",farm
+Skagit River Ranch,"28778 Utopia Rd, Sedro-Woolley, WA 98284",farm
+Sno-Valley Mushrooms,"16328 315TH Ave NE Duvall, WA 98019-7615",farm
+"SpringRain Farm & Orchard, Inc.","187 Covington Way, Chimacum, WA 98325",farm
+St. Jude Tuna,"1900 W Nickerson St, Seattle, WA 98119",seafood
+Stokesberry Sustainable Farm,"7429 85th Ln SE, Olympia, WA 98513",farm
+Summit & Terrace Artisanal Fragrance,,bath and body
+Sunny Pine Farm,"932A Twisp River Rd, Twisp, WA 98856",farm
+Sunset Hill Enterprises,"6316 30th Ave NW, Seattle, WA 98107",art
+Tall Grass Bakery,"5907 24th Ave NW, Seattle, WA 98107",bakery
+Taqueria Los Chilangos,"14008 NE 8th St Bellevue, WA 98007",prepared food
+The Old Farmer,snohomish WA,farm
+The Old White House,"21904 7th Pl W, Bothell, WA 98021",bath and body
+The Tandoozy Company,"747 S Henderson St Seattle ​, WA, 98108-4621",prepared food
+Timber City Ginger,"8103 8th Ave S, Seattle, WA 98108",beverage
+Tin Dog Brewing,"309 South Cloverdale Street Seattle, WA 98108",beverage 
+TINYS ORGANIC,"669 S Ward, East Wenatchee, WA 98802",farm
+Under The Chestnut Tree,,
+Uphill Designs,"2821 NW Market Street, Seattle, WA 98107",art
+Urban Sanctuary Farm,"S 176th St Seatac, WA 98188",farm
+Vespucci Pizza,"3004 NW 59th St, Seattle, WA 98107",prepared food
+Wag & Wood,"34709 Ne 98th St in Carnation, Washington",kitchen supplies
+Wilridge Winery & Vineyard,"250 Ehler Rd, Yakima, WA 98908",beverage
+Wilson Fish Markets LLC,"3209 Harrison Avenue NE Olympia ​, WA, 98502",seafood
+Windy N Ranch,"3650 Passmore Rd, Ellensburg, WA 98926",farm
+Yu Tang Ceramics,"4019 Aurora Ave N, Seattle, WA 98103",art
+ZIVA Mediterranean Foods,"5131 S Director St, Seattle, WA 98118",prepared food
