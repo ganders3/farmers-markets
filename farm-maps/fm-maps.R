@@ -1,6 +1,7 @@
 library(dplyr)
 library(ggmap)
 library(ggplot2)
+library(ggimage)
 library(mapdata)
 library(maps)
 library(sp)
@@ -9,9 +10,14 @@ library(sp)
 rm(list = ls())
 # -------------------- controls------------------------------
 DIRECTORY = '/home/gregory/farmers-markets/farm-maps'
+ICONS_FOLDER = 'icons'
 RATIO = 1.4
 API_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 GEOCODED_DATA_FILE = 'farms-geocoded.csv'
+
+IMG_WIDTH = 834
+IMG_HEIGHT = 551
+IMG_SCALE = 1.5
 # -------------------- controls------------------------------
 setwd(DIRECTORY)
 
@@ -51,8 +57,19 @@ gg = ggplot() +
 for (yr in 2019:2021) {
   present = d1 %>% select(paste0('present', yr))
   dataToPlot = d1[which(present == 1), ]
+  png(paste0('market-map-', yr, '.png'), width = IMG_SCALE*IMG_WIDTH, height = IMG_SCALE*IMG_HEIGHT)
   ## Need to wrap this line in print() in order to output ggplots within a for loop
   print(gg + 
-          geom_point(data  = dataToPlot, aes(x = lon, y = lat), color = 'red', size = 1) +
+          geom_point(data  = dataToPlot, aes(x = lon, y = lat), color = 'red', alpha = 0.5, size = 1) +
           labs(title = print(yr)))
+  dev.off()
 }
+
+########
+dataToPlot = dataToPlot %>% mutate(img = rep("https://jeroenooms.github.io/images/frink.png", 82))
+
+gg +
+  geom_point(data  = dataToPlot, aes(x = lon, y = lat), color = 'red', alpha = 0.5, size = 1) +
+  labs(title = print(yr))
+
+gg + geom_image(data = dataToPlot, mapping = aes(x = lon, y = lat, image = img), size = 0.05)
