@@ -11,13 +11,16 @@ rm(list = ls())
 # -------------------- controls------------------------------
 DIRECTORY = '/home/gregory/farmers-markets/farm-maps'
 ICONS_FOLDER = 'icons'
-RATIO = 1.4
+LAT_LON_RATIO = 1.4
 API_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 GEOCODED_DATA_FILE = 'farms-geocoded.csv'
 
-IMG_WIDTH = 834
+# Starting image height
 IMG_HEIGHT = 551
-IMG_SCALE = 1.5
+# Determine width based on aspect ratio
+IMG_RATIO = 1.51
+# Scale the image to be larger (value > 1) or smaller (value < 1) 
+IMG_RESIZE = 1.5
 # -------------------- controls------------------------------
 setwd(DIRECTORY)
 
@@ -27,14 +30,15 @@ d = read.csv('farms.csv', header = TRUE)
 
 
 if (file.exists(GEOCODED_DATA_FILE)) {
-  print('Geocoded file found.')
+  print(paste('Geocoded file found. Opening', GEOCODED_DATA_FILE))
   d1 = read.csv(GEOCODED_DATA_FILE, header = TRUE)
 } else {
-  print('No file found. Geocoding addresses using Google Maps API...')
+  print('No geocoded file found. Geocoding addresses using Google Maps API...')
   # Geocode the addresses using Google Maps API
   d1 = mutate_geocode(d, location = address, output = 'latlona')
   write.csv(d1, 'farms-geocoded.csv')
 }
+
 
 # Display the entries that did not return anything from Google Maps
 failed = d1[which(is.na(d1$lon)), ]
@@ -51,25 +55,33 @@ gg = ggplot() +
     fill = 'white',
     color = 'black'
     ) +
-  coord_fixed(RATIO)
+  coord_fixed(LAT_LON_RATIO)
 
 # Add farm locations to map
 for (yr in 2019:2021) {
-  present = d1 %>% select(paste0('present', yr))
-  dataToPlot = d1[which(present == 1), ]
-  png(paste0('market-map-', yr, '.png'), width = IMG_SCALE*IMG_WIDTH, height = IMG_SCALE*IMG_HEIGHT)
-  ## Need to wrap this line in print() in order to output ggplots within a for loop
-  print(gg + 
-          geom_point(data  = dataToPlot, aes(x = lon, y = lat), color = 'red', alpha = 0.5, size = 1) +
-          labs(title = print(yr)))
+  d2 = d1 %>%
+    filter(get(paste0('present', yr)) == 1) %>%
+    mutate(image_file = if_else(category == "",
+                                paste0(DIRECTORY, "/", ICONS_FOLDER, "/fruit veggie.png"),
+                                paste0(DIRECTORY, "/", ICONS_FOLDER, "/", category, ".png")))
+  
+  pngTitle = paste0('market-map-', yr, '.png')
+  # Create a blank png file
+  png(pngTitle, width = IMG_HEIGHT*IMG_RATIO*IMG_RESIZE, height = IMG_HEIGHT*IMG_RESIZE)
+  # Need to wrap this line in print() in order to output ggplots within a for loop
+  print(gg +
+          geom_image(data = d2, mapping = aes(x = lon, y = lat, image = image_file), size = 0.05) +
+          labs(title = paste('Farm attendance on week 16,', yr)))
+  print(paste('Saving', pngTitle, '...'))
+  # Save the png file containing the plot in the line above
   dev.off()
 }
+# d2 = d2 %>% mutate(image_file = if_else(category == "",
+#                                         paste0(DIRECTORY, "/", ICONS_FOLDER, "/fruit veggie.png"),
+#                                         paste0(DIRECTORY, "/", ICONS_FOLDER, "/", category, ".png")))
 
 ########
-dataToPlot = dataToPlot %>% mutate(img = rep("https://jeroenooms.github.io/images/frink.png", 82))
+# dataToPlot = dataToPlot %>% mutate(img = rep("https://jeroenooms.github.io/images/frink.png", 82))
 
-gg +
-  geom_point(data  = dataToPlot, aes(x = lon, y = lat), color = 'red', alpha = 0.5, size = 1) +
-  labs(title = print(yr))
 
-gg + geom_image(data = dataToPlot, mapping = aes(x = lon, y = lat, image = img), size = 0.05)
+# gg + geom_image(data = d2, mapping = aes(x = lon, y = lat, image = image_file), size = 0.05)
