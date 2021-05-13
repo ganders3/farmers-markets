@@ -1,5 +1,6 @@
 # Farm maps
 
+<<<<<<< HEAD
 Generating maps showing which farms/vendors that sold at the Ballard Farmers Market in 2019, 2020, and 2021.
 
 ## Maps by color
@@ -12,6 +13,19 @@ Maps with each vendor category as a colored dot.
 ![map2019](maps/dot-map-2020.png)
 
 ![map2019](maps/dot-map-2019.png)
+=======
+Here we are generating maps showing which farms/vendors that sold at the Ballard Farmers Market in 2019, 2020, and 2021.
+
+## Maps by color
+
+Here are the maps with each vendor category as a colored dot.
+
+![map2019](market-map-2019.png)
+
+![map2020](market-map-2020.png)
+
+![map2021](market-map-2021.png)
+>>>>>>> 47986b37c2770b1a6457976a00dcdee14a7465eb
 
 ## Maps by icon
 
@@ -21,4 +35,8 @@ Maps with each vendor category as an imported icon file. The icons need redesign
 
 ![mapicons2020](market-map-icons-2020.png)
 
+<<<<<<< HEAD
 ![mapicons2021](market-map-icons-2021.png)
+=======
+![mapicons2021](market-map-icons-2021.png)
+>>>>>>> 47986b37c2770b1a6457976a00dcdee14a7465eb
