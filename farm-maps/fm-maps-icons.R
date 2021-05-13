@@ -11,6 +11,7 @@ library(scales)
 rm(list = ls())
 # -------------------- controls------------------------------
 DIRECTORY = '/home/gregory/farmers-markets/farm-maps'
+ICONS_FOLDER = 'icons'
 GEOCODED_DATA_FILE = 'farms-geocoded.csv'
 API_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 LAT_LON_RATIO = 1.4
@@ -44,10 +45,6 @@ if (file.exists(GEOCODED_DATA_FILE)) {
 # Display the entries that did not return anything from Google Maps
 failed = d1[which(is.na(d1$lon)), ]
 
-# pallete = hue_pal()(length(unique(d1$category)))
-pallete = rainbow(length(unique(d1$category)))
-names(pallete) = unique(d1$category)
-
 # Create map of Washington ####
 m = map_data('state', region = 'Washington')
 # Plot the map of Washington
@@ -60,28 +57,23 @@ for (yr in 2019:2021) {
   
   # Filter for data which were present in each year
   d2 = d1 %>%
-    filter(get(paste0('present', yr)) == 1)
+    filter(get(paste0('present', yr)) == 1) %>%
+    # Add a column to the data for the image file location
+    mutate(image_file = if_else(category == "",
+                              paste0(DIRECTORY, "/", ICONS_FOLDER, "/fruit veggie.png"),
+                              paste0(DIRECTORY, "/", ICONS_FOLDER, "/", category, ".png")))
   
   if (SAVE_PLOTS) {
     # Name the png file
-    pngTitle = paste0('market-map-', yr, '.png')
+    pngTitle = paste0('market-map-icons-', yr, '.png')
     # Create a blank png file
     png(pngTitle, width = IMG_HEIGHT*IMG_RATIO*IMG_RESIZE, height = IMG_HEIGHT*IMG_RESIZE)
   }
   
-  # Need to wrap this line in print() in order to output ggplots within a for loop
+  # Print the plot with loaded png files in place of data points
   print(gg +
-          # Plot data points, colored by category
-          geom_point(data = d2, mapping = aes(x = lon, y = lat, color = category), size = 3) +
-          # Change the point color to reflect the pallete defined above. limits sets which legend categories should appear
-          scale_color_manual(values = pallete, limits = names(pallete)) +
-          # Add a plot title
-          ggtitle(paste0('Ballard Farmers Market Attendance, Week 16 of ', yr)) +
-          # Adjust the title to be centered
-          theme(plot.title = element_text(hjust = 0.5)) +
-          # Change the x and y coordinate labels
-          xlab('Longitude') + ylab('Latitude')
-  )
+          geom_image(data = d2, mapping = aes(x = lon, y = lat, image = image_file), size = 0.025) +
+          labs(title = paste('Farm attendance on week 16,', yr)))
   
   if (SAVE_PLOTS) {
     print(paste('Saving', pngTitle, '...'))
