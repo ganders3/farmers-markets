@@ -11,8 +11,9 @@ library(scales)
 rm(list = ls())
 # -------------------- controls------------------------------
 DIRECTORY = '/home/gregory/farmers-markets/farm-maps'
+OUTPUT_FOLDER = 'maps'
 GEOCODED_DATA_FILE = 'farms-geocoded.csv'
-API_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+FUNCTIONS_FILE = 'functions.R'
 LAT_LON_RATIO = 1.4
 # Set true to save plots as png files, or false to print plots to screen
 SAVE_PLOTS = TRUE
@@ -24,11 +25,12 @@ IMG_RATIO = 1.51
 IMG_RESIZE = 1.5
 # -------------------- controls------------------------------
 setwd(DIRECTORY)
+source(FUNCTIONS_FILE)
+imgWidth = IMG_HEIGHT*IMG_RATIO*IMG_RESIZE
+imgHeight = IMG_HEIGHT*IMG_RESIZE
 
 # Get coordinates of farm addresses ####
 d = read.csv('farms.csv', header = TRUE)
-# colnames(d) = c('Name', 'Address', 'Category')
-
 
 if (file.exists(GEOCODED_DATA_FILE)) {
   print(paste('Geocoded file found. Opening', GEOCODED_DATA_FILE))
@@ -51,10 +53,14 @@ names(pallete) = unique(d1$category)
 # Create map of Washington ####
 m = map_data('state', region = 'Washington')
 # Plot the map of Washington
-gg = ggplot() +
+ggW = ggplot() +
   geom_polygon(data = m, aes(x = long, y = lat, group = group), fill = 'white', color = 'black') +
   coord_fixed(LAT_LON_RATIO)
-
+# Plot the map of Puget Sound region
+ggPS = ggplot() +
+  geom_polygon(data = m, aes(x = long, y = lat, group = group), fill = 'white', color = 'black') +
+  coord_fixed(LAT_LON_RATIO, xlim = c(-123.25, -121.75), ylim = c(47, 48.25))
+  
 # Add farm locations to map
 for (yr in 2019:2021) {
   
@@ -62,30 +68,14 @@ for (yr in 2019:2021) {
   d2 = d1 %>%
     filter(get(paste0('present', yr)) == 1)
   
-  if (SAVE_PLOTS) {
-    # Name the png file
-    pngTitle = paste0('market-map-', yr, '.png')
-    # Create a blank png file
-    png(pngTitle, width = IMG_HEIGHT*IMG_RATIO*IMG_RESIZE, height = IMG_HEIGHT*IMG_RESIZE)
-  }
+  titleWash = paste0('Ballard Farmers Market Attendance, Week 16 of ', yr)
+  titlePuget = paste0('Ballard Farmers Market Attendance, Puget Sound Region, Week 16 of ', yr)
+  
+  pngWash = paste0(OUTPUT_FOLDER, '/dot-map-', yr, '.png')
+  pngPuget = paste0(OUTPUT_FOLDER, '/dot-map-puget-', yr, '.png')
   
   # Need to wrap this line in print() in order to output ggplots within a for loop
-  print(gg +
-          # Plot data points, colored by category
-          geom_point(data = d2, mapping = aes(x = lon, y = lat, color = category), size = 3) +
-          # Change the point color to reflect the pallete defined above. limits sets which legend categories should appear
-          scale_color_manual(values = pallete, limits = names(pallete)) +
-          # Add a plot title
-          ggtitle(paste0('Ballard Farmers Market Attendance, Week 16 of ', yr)) +
-          # Adjust the title to be centered
-          theme(plot.title = element_text(hjust = 0.5)) +
-          # Change the x and y coordinate labels
-          xlab('Longitude') + ylab('Latitude')
-  )
-  
-  if (SAVE_PLOTS) {
-    print(paste('Saving', pngTitle, '...'))
-    # Save the png file containing the plot in the line above
-    dev.off()
-  }
+  plotFarms(ggW, d2, titleWash, SAVE_PLOTS, pngWash, imgWidth, imgHeight)
+  plotFarms(ggPS, d2, titlePuget, SAVE_PLOTS, pngPuget, imgWidth, imgHeight)
+
 }

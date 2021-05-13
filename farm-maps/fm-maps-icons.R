@@ -11,9 +11,10 @@ library(scales)
 rm(list = ls())
 # -------------------- controls------------------------------
 DIRECTORY = '/home/gregory/farmers-markets/farm-maps'
-ICONS_FOLDER = 'icons'
+OUTPUT_FOLDER = 'maps'
 GEOCODED_DATA_FILE = 'farms-geocoded.csv'
-API_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+FUNCTIONS_FILE = 'functions.R'
+ICONS_FOLDER = 'icons'
 LAT_LON_RATIO = 1.4
 # Set true to save plots as png files, or false to print plots to screen
 SAVE_PLOTS = TRUE
@@ -25,11 +26,12 @@ IMG_RATIO = 1.51
 IMG_RESIZE = 1.5
 # -------------------- controls------------------------------
 setwd(DIRECTORY)
+source(FUNCTIONS_FILE)
+imgWidth = IMG_HEIGHT*IMG_RATIO*IMG_RESIZE
+imgHeight = IMG_HEIGHT*IMG_RESIZE
 
 # Get coordinates of farm addresses ####
 d = read.csv('farms.csv', header = TRUE)
-# colnames(d) = c('Name', 'Address', 'Category')
-
 
 if (file.exists(GEOCODED_DATA_FILE)) {
   print(paste('Geocoded file found. Opening', GEOCODED_DATA_FILE))
@@ -48,9 +50,13 @@ failed = d1[which(is.na(d1$lon)), ]
 # Create map of Washington ####
 m = map_data('state', region = 'Washington')
 # Plot the map of Washington
-gg = ggplot() +
+ggW = ggplot() +
   geom_polygon(data = m, aes(x = long, y = lat, group = group), fill = 'white', color = 'black') +
   coord_fixed(LAT_LON_RATIO)
+# Plot the map of Puget Sound region
+ggPS = ggplot() +
+  geom_polygon(data = m, aes(x = long, y = lat, group = group), fill = 'white', color = 'black') +
+  coord_fixed(LAT_LON_RATIO, xlim = c(-123.25, -121.75), ylim = c(47, 48.25))
 
 # Add farm locations to map
 for (yr in 2019:2021) {
@@ -63,21 +69,13 @@ for (yr in 2019:2021) {
                               paste0(DIRECTORY, "/", ICONS_FOLDER, "/fruit veggie.png"),
                               paste0(DIRECTORY, "/", ICONS_FOLDER, "/", category, ".png")))
   
-  if (SAVE_PLOTS) {
-    # Name the png file
-    pngTitle = paste0('market-map-icons-', yr, '.png')
-    # Create a blank png file
-    png(pngTitle, width = IMG_HEIGHT*IMG_RATIO*IMG_RESIZE, height = IMG_HEIGHT*IMG_RESIZE)
-  }
+  titleWash = paste0('Ballard Farmers Market Attendance, Week 16 of ', yr)
+  titlePuget = paste0('Ballard Farmers Market Attendance, Puget Sound Region, Week 16 of ', yr)
   
-  # Print the plot with loaded png files in place of data points
-  print(gg +
-          geom_image(data = d2, mapping = aes(x = lon, y = lat, image = image_file), size = 0.025) +
-          labs(title = paste('Farm attendance on week 16,', yr)))
+  pngWash = paste0(OUTPUT_FOLDER, '/icon-map-', yr, '.png')
+  pngPuget = paste0(OUTPUT_FOLDER, '/icon-map-puget-', yr, '.png')
   
-  if (SAVE_PLOTS) {
-    print(paste('Saving', pngTitle, '...'))
-    # Save the png file containing the plot in the line above
-    dev.off()
-  }
+  # Need to wrap this line in print() in order to output ggplots within a for loop
+  plotFarmsAsIcons(ggW, d2, titleWash, SAVE_PLOTS, pngWash, imgWidth, imgHeight)
+  plotFarmsAsIcons(ggPS, d2, titlePuget, SAVE_PLOTS, pngPuget, imgWidth, imgHeight)
 }
