@@ -47,9 +47,17 @@ if (file.exists(GEOCODED_DATA_FILE)) {
 failed = d1[which(is.na(d1$lon)), ]
 
 # pallete = hue_pal()(length(unique(d1$category)))
-pallete = rainbow(length(unique(d1$category)))
-names(pallete) = unique(d1$category)
+# pallete = rainbow(length(unique(d1$category)))
+# names(pallete) = unique(d1$category)
+pallete = c(
+  'farm' = '#059877',
+  'bakery' = '#FF7D54',
+  'art' = '#A903E1',
+  'prepared food' = '#CB211F',
+  'bath and body' = '#0BA7E5',
+  'seafood' = '#163ED3'
 
+)
 # Create map of Washington ####
 m = map_data('state', region = 'Washington')
 # Plot the map of Washington
@@ -66,7 +74,7 @@ for (yr in 2019:2021) {
   
   # Filter for data which were present in each year
   d2 = d1 %>%
-    filter(get(paste0('present', yr)) == 1)
+    filter(get(paste0('present', yr)) == 1 )
   
   titleWash = paste0('Ballard Farmers Market Attendance, Week 16 of ', yr)
   titlePuget = paste0('Ballard Farmers Market Attendance, Puget Sound Region, Week 16 of ', yr)
