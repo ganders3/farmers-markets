@@ -14,9 +14,9 @@ DIRECTORY = '/home/gregory/farmers-markets/farm-maps'
 OUTPUT_FOLDER = 'maps'
 GEOCODED_DATA_FILE = 'farms-geocoded.csv'
 FUNCTIONS_FILE = 'functions.R'
-LAT_LON_RATIO = 1.4
+LAT_LON_RATIO = 1
 # Set true to save plots as png files, or false to print plots to screen
-SAVE_PLOTS = TRUE
+SAVE_PLOTS = FALSE
 # Starting image height
 IMG_HEIGHT = 551
 # Determine width based on aspect ratio
@@ -52,11 +52,10 @@ failed = d1[which(is.na(d1$lon)), ]
 pallete = c(
   'farm' = '#059877',
   'bakery' = '#FF7D54',
-  'art' = '#A903E1',
+  'crafter' = '#A903E1',
   'prepared food' = '#CB211F',
-  'bath and body' = '#0BA7E5',
-  'seafood' = '#163ED3'
-
+  'seafood' = '#0BA7E5'
+  # 'seafood' = '#163ED3',
 )
 # Create map of Washington ####
 m = map_data('state', region = 'Washington')
@@ -85,5 +84,4 @@ for (yr in 2019:2021) {
   # Need to wrap this line in print() in order to output ggplots within a for loop
   plotFarms(ggW, d2, titleWash, SAVE_PLOTS, pngWash, imgWidth, imgHeight)
   plotFarms(ggPS, d2, titlePuget, SAVE_PLOTS, pngPuget, imgWidth, imgHeight)
-
 }
