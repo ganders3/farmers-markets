@@ -1,11 +1,5 @@
-library(dplyr)
-library(ggmap)
-library(ggplot2)
-library(ggimage)
-library(mapdata)
-library(maps)
-library(sp)
-library(scales)
+PACKAGES = c('dplyr', 'ggimage', 'ggmap', 'ggplot2', 'mapdata', 'mapproj', 'maps', 'scales', 'sp')
+lapply(PACKAGES, require, character.only = TRUE)
 
 # Set-up ####
 rm(list = ls())
@@ -14,9 +8,9 @@ DIRECTORY = '/home/gregory/farmers-markets/farm-maps'
 OUTPUT_FOLDER = 'maps'
 GEOCODED_DATA_FILE = 'farms-geocoded.csv'
 FUNCTIONS_FILE = 'functions.R'
-LAT_LON_RATIO = 1
+LAT_LON_RATIO = 1.4
 # Set true to save plots as png files, or false to print plots to screen
-SAVE_PLOTS = FALSE
+SAVE_PLOTS = TRUE
 # Starting image height
 IMG_HEIGHT = 551
 # Determine width based on aspect ratio
@@ -66,7 +60,8 @@ ggW = ggplot() +
 # Plot the map of Puget Sound region
 ggPS = ggplot() +
   geom_polygon(data = m, aes(x = long, y = lat, group = group), fill = 'white', color = 'black') +
-  coord_fixed(LAT_LON_RATIO, xlim = c(-123.25, -121.75), ylim = c(47, 48.25))
+  coord_map(projection = "mercator", xlim = c(-123.25, -121.75), ylim = c(47, 48.25))
+  # coord_fixed(LAT_LON_RATIO, xlim = c(-123.25, -121.75), ylim = c(47, 48.25))
   
 # Add farm locations to map
 for (yr in 2019:2021) {

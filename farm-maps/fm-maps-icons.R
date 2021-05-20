@@ -1,11 +1,5 @@
-library(dplyr)
-library(ggmap)
-library(ggplot2)
-library(ggimage)
-library(mapdata)
-library(maps)
-library(sp)
-library(scales)
+PACKAGES = c('dplyr', 'ggimage', 'ggmap', 'ggplot2', 'mapdata', 'mapproj', 'maps', 'scales', 'sp')
+lapply(PACKAGES, require, character.only = TRUE)
 
 # Set-up ####
 rm(list = ls())

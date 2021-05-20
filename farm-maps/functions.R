@@ -6,8 +6,10 @@ plotFarms = function(gg, d, title, savePlots, pngName, w, h) {
   
   out = gg +
     # Plot data points, colored by category
-    geom_point(data = d, mapping = aes(x = lon, y = lat, color = category, size = 3)) +
-    geom_text(data = d, aes(x = lon, y = lat, label = farm)) + 
+    geom_point(data = d, mapping = aes(x = lon, y = lat, color = category), size = 3) +
+    coord_map(projection = "mercator", xlim = c(-123.25, -121.75), ylim = c(47, 48.25))+
+  
+    # geom_text(data = d, aes(x = lon, y = lat, label = farm)) + 
     # Change the point color to reflect the pallete defined above. limits sets which legend categories should appear
     scale_color_manual(values = pallete, limits = names(pallete)) +
     # Add a plot title
