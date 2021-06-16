@@ -1,12 +1,14 @@
-PACKAGES = c('dplyr', 'ggimage', 'ggmap', 'ggplot2', 'mapdata', 'mapproj', 'maps', 'scales', 'sp')
+PACKAGES = c('dplyr', 'ggimage', 'ggmap', 'ggplot2', 'mapdata', 'mapproj', 'maps', 'scales', 'sp', 'stringr')
 lapply(PACKAGES, require, character.only = TRUE)
 
 # Set-up ####
 rm(list = ls())
 # -------------------- controls------------------------------
 DIRECTORY = '/home/gregory/farmers-markets/farm-maps'
+DATA_FOLDER = 'data'
 OUTPUT_FOLDER = 'maps'
-GEOCODED_DATA_FILE = 'farms-geocoded.csv'
+DATA_FILE_INPUT = 'farms.csv'
+DATA_FILE_OUTPUT ='farms-geocoded.csv'
 FUNCTIONS_FILE = 'functions.R'
 LAT_LON_RATIO = 1.4
 # Set true to save plots as png files, or false to print plots to screen
@@ -24,32 +26,30 @@ imgWidth = IMG_HEIGHT*IMG_RATIO*IMG_RESIZE
 imgHeight = IMG_HEIGHT*IMG_RESIZE
 
 # Get coordinates of farm addresses ####
-d = read.csv('farms.csv', header = TRUE)
+d = read.csv(paste0(DATA_FOLDER, '/', DATA_FILE_INPUT), header = TRUE)
 
-if (file.exists(GEOCODED_DATA_FILE)) {
-  print(paste('Geocoded file found. Opening', GEOCODED_DATA_FILE))
-  d1 = read.csv(GEOCODED_DATA_FILE, header = TRUE)
+geoFilePath = paste0(DATA_FOLDER, '/', DATA_FILE_OUTPUT)
+if (file.exists(geoFilePath)) {
+  print(paste('Geocoded file found. Opening', geoFilePath))
+  d1 = read.csv(geoFilePath, header = TRUE)
 } else {
   print('No geocoded file found. Geocoding addresses using Google Maps API...')
   # Geocode the addresses using Google Maps API
   d1 = mutate_geocode(d, location = address, output = 'latlona')
+  colnames(d1) = makeUniqueNames(colnames(d1))
   # Save the geocoded data to csv
-  write.csv(d1, 'farms-geocoded.csv')
+  write.csv(d1, geoFilePath)
 }
 
 # Display the entries that did not return anything from Google Maps
 failed = d1[which(is.na(d1$lon)), ]
 
-# pallete = hue_pal()(length(unique(d1$category)))
-# pallete = rainbow(length(unique(d1$category)))
-# names(pallete) = unique(d1$category)
 pallete = c(
   'farm' = '#059877',
   'bakery' = '#FF7D54',
   'crafter' = '#A903E1',
   'prepared food' = '#CB211F',
   'seafood' = '#0BA7E5'
-  # 'seafood' = '#163ED3',
 )
 # Create map of Washington ####
 m = map_data('state', region = 'Washington')
