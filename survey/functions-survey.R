@@ -9,3 +9,15 @@ makeUniqueNames = function(names) {
     make.names(unique = T)
   return(names)
 }
+
+simplePie = function(dat, var) {
+  numRow = nrow(dat)
+  
+  q = dat %>%
+    select(x = var) %>%
+    group_by(x) %>%
+    summarise(y = 100*n()/numRow)
+  
+  pie(q$y, q$x)
+  return(q)
+}

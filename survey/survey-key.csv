@@ -1,0 +1,33 @@
+Var,Desc
+ID,ID
+FS1,Farmers Markets
+FS2,CSA
+FS3,Co-op
+FS4,Restaurants
+FS5,Food Bank
+FS6,Grocery store
+FS7,Order online
+FS8,Other
+FS8C,Comments
+HO,How often do you visit the farmers market?
+WH,Which farmers market do you visit?
+W1,To support local business
+W2,To buy healthy food
+W3,For the community
+W4,To get things I cannot find elsewhere
+W5,Other
+W5C,Comments
+P1,Percent Before
+P2,Percent During
+F1,Personal health and safety
+F2,Federal CDC guidelines
+F3,Farmers market COVID-19 rules
+F4,Waiting in line
+F5,Opportunity to socialize
+VML,Visit more or less
+D1,Age
+D2,Gender
+D3,ZIP Code
+LM,What did you like most about the farmers market?
+LL,What did you like least about the farmers market?
+LC,Additional Comments
