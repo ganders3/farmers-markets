@@ -21,3 +21,28 @@ simplePie = function(dat, var) {
   pie(q$y, q$x)
   return(q)
 }
+
+# Core wrapping function
+wrap.it = function(x, len)
+{ 
+  sapply(x, function(y) paste(strwrap(y, len), 
+                              collapse = "\n"), 
+         USE.NAMES = FALSE)
+}
+
+# Call this function with a list or vector
+wrap.labels = function(x, len)
+{
+  if (is.list(x))
+  {
+    lapply(x, wrap.it, len)
+  } else {
+    wrap.it(x, len)
+  }
+}
+
+# Round number ending in 5 or more to next 10
+round5 = function(x) {
+  mod = x %% 10
+  ifelse(mod >= 5, x + 10- mod, x - mod)
+}
