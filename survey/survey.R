@@ -66,7 +66,7 @@ q4 = d %>%
             pctNo = 100*sum(value == 'No')/n()) %>%
   inner_join(key, by = c("x" = "Var"))
 
-png(file = paste0(OUTPUT_FOLDER, '/', 'q8-why-yes.png'), height = 960, width = 960)
+png(file = paste0(OUTPUT_FOLDER, '/', 'q4-why-yes.png'), height = 960, width = 960)
 barplot(q4$pctYes, names.arg = q4$Desc, ylim = c(0,100))
 dev.off()
 
