@@ -1,4 +1,4 @@
-PACKAGES = c('dplyr', 'ggplot2', 'stringr', 'tidyr')
+PACKAGES = c('dplyr', 'ggplot2', 'scales', 'stringr', 'tidyr')
 lapply(PACKAGES, require, character.only = TRUE)
 
 # Set-up ####
@@ -53,15 +53,29 @@ q4 = d %>%
 barplot(q4$pctYes, names.arg = q4$Desc, ylim = c(0,100))
 barplot(q4$pctNo, names.arg = q4$Desc, ylim = c(0,100))
 
+#### Query 5 - Percent of purchases at FM before and during pandemic ####
+q5 = d %>%
+  gather(x, y, P1:P2) %>%
+  inner_join(key, by = c('x' = 'Var')) %>%
+  select(x = Desc, y)
+
+q5 = table(q5$y, q5$y)
 #### Query 6 - Did these factors make you more or less likely to visit the FM? ####
 q6 = d %>%
   gather(x, value, F1:F5) %>%
-  group_by(x) %>%
-  summarise(more = 100*sum(value == 'More likely to visit')/n(),
-            same = 100*sum(value == 'Had no effect')/n(),
-            less = 100*sum(value == 'Less likely to visit')/n()) %>%
-  inner_join(key, by = c('x' = 'Var'))
-  
+  inner_join(key, by = c('x' = 'Var')) %>%
+  select(x = Desc, value) %>%
+  filter(value != '')
+
+q6 = table(q6$value, q6$x)
+q6 = 100*q6/apply(q6, 2, sum)
+
+barplot(q6,
+        horiz = TRUE,
+        col = c('#f1f1f1', '#de425b', '#488f31'),
+        legend.text = rownames(q6),
+        args.legend = list(x = 'bottom', inset = c(0, -0.15), horiz = TRUE)
+        )
 
 #### Query 7 - Did you visit the market more or less during the pandemic? ####
 q7 = simplePie(d, 'VML')
