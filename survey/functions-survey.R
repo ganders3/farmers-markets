@@ -46,3 +46,29 @@ round5 = function(x) {
   mod = x %% 10
   ifelse(mod >= 5, x + 10- mod, x - mod)
 }
+
+makeWordCloud = function(textDfCol, seed = NULL) {
+  text = textDfCol
+  tc = Corpus(VectorSource(text))
+  tc = tc %>%
+    tm_map(removeNumbers) %>%
+    tm_map(removePunctuation) %>%
+    tm_map(stripWhitespace) %>%
+    tm_map(., content_transformer(tolower)) %>%
+    tm_map(., removeWords, stopwords('english'))
+  
+  
+  dtm = TermDocumentMatrix(tc)
+  matrix = as.matrix(dtm)
+  words = sort(rowSums(matrix), decreasing = TRUE)
+  df = data.frame(word = names(words), freq = words)
+  
+  if(!is.null(seed)) {set.seed(seed)}
+  wordcloud(words = df$word, freq = df$freq,
+            min.freq = 1,
+            max.words = 200,
+            random.order = FALSE,
+            rot.per = 0.35,
+            colors = brewer.pal(8, 'Dark2')
+  )
+}
