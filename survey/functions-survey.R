@@ -10,14 +10,20 @@ makeUniqueNames = function(names) {
   return(names)
 }
 
+summarize100pct = function(dat, var) {
+  query = dat %>%
+    select(x = var) %>%
+    count(x) %>%
+    mutate(pct = 100*n/sum(n), lab = paste0(format(pct, digits = 2), "%"))
+  return(query)
+}
+
 simplePie = function(dat, var) {
   numRow = nrow(dat)
-  
   q = dat %>%
     select(x = var) %>%
     group_by(x) %>%
     summarise(y = 100*n()/numRow)
-  
   pie(q$y, q$x)
   return(q)
 }
