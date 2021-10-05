@@ -1,4 +1,4 @@
-PACKAGES = c("dplyr", "ggplot2", "profvis", "scales", "stringr", "tidyr", "waffle")
+PACKAGES = c("dplyr", "ggplot2", "ggwaffle", "profvis", "scales", "stringr", "tidyr", "waffle")
 lapply(PACKAGES, require, character.only = TRUE)
 
 # Set-up ####
@@ -46,33 +46,27 @@ q1 = d %>%
             pctNo = 100*sum(value == "No")/n()) %>%
   inner_join(key, by = c("x" = "Var"))
 
-p1a = ggplot(q1, aes(x = reorder(Desc, pctYes), y = pctYes)) +
+p1a = ggplot(q1, aes(x = reorder(Desc, -pctYes), y = pctYes)) +
   geom_col(fill = "#74abf1") +
-  coord_flip() +
-  xlab("Food source") +
-  ylab("Percent of respondents marking \"yes\"") +
-  ylim(0, 100) +
+  labs(x = "Food source", y = "Percent of respondents marking \"yes\"") +
+  scale_y_continuous(labels = percent_format(scale = 1), limits = c(0,100)) +
   geom_text(aes(y = pctYes+3, label = paste0(format(pctYes, digits = 1), "%")), colour = "black")
 
-p1b = ggplot(q1, aes(x = reorder(Desc, -pctNo), y = pctNo)) +
+p1b = ggplot(q1, aes(x = reorder(Desc, pctNo), y = pctNo)) +
   geom_col(fill = "#e0657a") +
-  coord_flip() +
-  xlab("Food source") +
-  ylab("Percent of respondents NOT marking \"yes\"") +
-  ylim(0, 100) +
+  labs(x = "Food source", y = "Percent of respondents NOT marking \"yes\"") +
+  scale_y_continuous(labels = percent_format(scale = 1), limits = c(0,100)) +
   geom_text(aes(y = pctNo-2, label = paste0(format(pctNo, digits = 1), "%")), colour = "black")
-
 
 #### Query 2 - how often do you visit the FM? ####
 q2 = summarize100pct(d, "HO")
 
 p2 = ggplot(q2, aes(x = x, y = pct)) +
   geom_col(fill = "#74abf1") +
-  coord_flip() +
-  xlab("Frequency of visit") +
-  ylab("Percent of respondents") +
+  labs(x = "Frequency of visit",  y= "Percent of respondents") +
+  scale_y_continuous(labels = percent_format(scale = 1)) +
   geom_text(aes(y = pct + 2, label = lab))
-  
+
 #### Query 3 - which FM do you visit?
 
 # Waffle plot
@@ -89,8 +83,7 @@ p3 = ggplot(q3, aes(x, y, fill = group)) +
   geom_waffle() +
   coord_equal() +
   theme_waffle +
-  labs(fill = "") +
-  ylab("") + xlab("Each square represents 1 survey response") +
+  labs(x = "Each square represents 1 survey response", y = "", fill = "") +
   scale_fill_brewer(palette = "Set2")
 
 
@@ -102,19 +95,15 @@ q4 = d %>%
             pctNo = 100*sum(value == "No")/n()) %>%
   inner_join(key, by = c("x" = "Var"))
 
-p4a = ggplot(q4, aes(x = reorder(Desc, pctYes), y = pctYes)) +
+p4a = ggplot(q4, aes(x = reorder(Desc, -pctYes), y = pctYes)) +
   geom_col(fill = "#74abf1") +
-  coord_flip() +
-  xlab("Reason for visiting FM") +
-  ylab("Percent of respondents marking \"yes\"") +
+  labs(x = "Reason for visiting FM", y = "Percent of respondents marking \"yes\"") +
   ylim(0, 100) +
   geom_text(aes(y = pctYes+3, label = paste0(format(pctYes, digits = 2), "%")), colour = "black")
 
-p4b = ggplot(q4, aes(x = reorder(Desc, -pctNo), y = pctNo)) +
+p4b = ggplot(q4, aes(x = reorder(Desc, pctNo), y = pctNo)) +
   geom_col(fill = "#e0657a") +
-  coord_flip() +
-  xlab("Reason for visiting FM") +
-  ylab("Percent of respondents NOT marking \"yes\"") +
+  labs(x = "Reason for visiting FM", y = "Percent of respondents NOT marking \"yes\"") +
   ylim(0, 100) +
   geom_text(aes(y = pctNo+3, label = paste0(format(pctNo, digits = 2), "%")), colour = "black")
 
@@ -122,16 +111,18 @@ p4b = ggplot(q4, aes(x = reorder(Desc, -pctNo), y = pctNo)) +
 q5 = d %>%
   select(P1, P2) %>%
   mutate(P1 = round5(P1),
-         P2 = round5(P2)) %>%
-  table() %>%
-  data.frame()
+         P2 = round5(P2),
+         Change = P2 - P1) %>%
+  count(Change) %>%
+  mutate(Group = case_when(Change > 0 ~ "Positive", Change < 0 ~ "Negative", TRUE ~ "Zero"),
+         Pct = 100*n/sum(n))
 
-p5 = ggplot(q5, aes(x = P1, y = P2, fill = Freq)) +
-  geom_tile(color = "white", lwd = 1.5) +
-  coord_fixed() +
-  scale_fill_gradient(low = "white", high = "#74abf1") +
-  xlab("Percent before pandemic") +
-  ylab("Percent during pandemic")
+p5 = ggplot(q5, aes(x = paste0(formatC(Change, flag = "+"), "%"), y = Pct)) +
+  geom_col(aes(fill = Group)) +
+  labs(x = "Percentage point change in spending during pandemic", y = "Percent of respondents", fill = "Percent change") +
+  scale_y_continuous(labels = percent_format(scale = 1)) +
+  geom_text(aes(y = Pct + 0.5, label = paste0(format(Pct, digits = 2), "%")))
+p5
 
 #### Query 6 - Did these factors make you more or less likely to visit the FM? ####
 # Gather on F1:F5 to create 2 columns: the variable F1-F5, and its response. This gives the table 5x as many rows
@@ -159,7 +150,8 @@ p6 = ggplot(q6, aes(x = Factor, y = Pct, fill = Effect)) +
   coord_flip() +
   scale_fill_brewer(palette = "Set2", direction = -1) +
   geom_text(aes(y = Position, label = paste0(format(Pct, digits = 2), "%")), color = "black") +
-  ylab("Percent of respondents")
+  ylab("Percent of respondents") + 
+  scale_y_continuous(labels = percent_format(scale = 1), limits = c(0,100))
 
 #### Query 7 - Did you visit the market more or less during the pandemic? ####
 q7 = waffle_iron(d, aes_d(group = VML), rows = 9)
@@ -168,8 +160,7 @@ p7 = ggplot(q7, aes(x, y, fill = group)) +
   geom_waffle() +
   coord_equal() +
   theme_waffle +
-  labs(fill = "") +
-  ylab("") + xlab("Each square represents 1 survey response") +
+  labs(x = "Each square represents 1 survey response", y = "", fill = "") +
   scale_fill_brewer(palette = "Set2", direction = -1)
 
 #### Query 8 - Demographics ####
@@ -177,8 +168,8 @@ q8a = summarize100pct(d, "D1")
 
 p8a = ggplot(q8a, aes(x = x, y = pct)) +
   geom_col(fill = "#74abf1") +
-  xlab("Frequency of visit") +
-  ylab("Percent of respondents") +
+  labs(x = "Age", y = "Percent of respondents") +
+  scale_y_continuous(labels = percent_format(scale = 1)) +
   geom_text(aes(y = pct + 0.25, label = lab))
 
 q8b = d %>%
@@ -189,22 +180,21 @@ p8b = ggplot(q8b, aes(x, y, fill = group)) +
   geom_waffle() +
   coord_equal() +
   theme_waffle +
-  labs(fill = "") +
-  ylab("") + xlab("Each square represents 1 survey response") +
+  labs(x = "Each square represents 1 survey response", y = "", fill = "") +
   scale_fill_brewer(palette = "Set2", direction = -1)
 
-
-q8c = simplePie(d, "D3")
-
-# Only zip codes with >= 5% of responses
-q8c1 = q8c %>%
-  select(x,y) %>%
-  arrange(desc(y)) %>%
-  filter(y >= 5)
-
-pie(q8c1$y, q8c1$x)
-
-#})
+# 
+# q8c = simplePie(d, "D3")
+# 
+# # Only zip codes with >= 5% of responses
+# q8c1 = q8c %>%
+#   select(x,y) %>%
+#   arrange(desc(y)) %>%
+#   filter(y >= 5)
+# 
+# pie(q8c1$y, q8c1$x)
+# 
+# #})
 plot_names = c("p1a", "p1b", "p2", "p3", "p4a", "p4b", "p5", "p6", "p7", "p8a", "p8b")
 for (name in plot_names) {
   if (SAVE_PLOTS) {
