@@ -117,9 +117,10 @@ q5 = d %>%
   mutate(Group = case_when(Change > 0 ~ "Positive", Change < 0 ~ "Negative", TRUE ~ "Zero"),
          Pct = 100*n/sum(n))
 
-p5 = ggplot(q5, aes(x = paste0(formatC(Change, flag = "+"), "%"), y = Pct)) +
+p5 = ggplot(q5, aes(x = Change, y = Pct)) + #paste0(formatC(Change, flag = "+"), "%"), y = Pct)) +
   geom_col(aes(fill = Group)) +
   labs(x = "Percentage point change in spending during pandemic", y = "Percent of respondents", fill = "Percent change") +
+  scale_x_continuous(labels = percent_format(scale =1), breaks = seq(-40, 50, 10)) +
   scale_y_continuous(labels = percent_format(scale = 1)) +
   geom_text(aes(y = Pct + 0.5, label = paste0(format(Pct, digits = 2), "%")))
 p5
